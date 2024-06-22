@@ -120,6 +120,7 @@ simple_stmt[stmt_ty] (memo):
     | 'pass' { _PyAST_Pass(EXTRA) }
     | &'del' del_stmt
     | &'yield' yield_stmt
+    | &'yeet' yield_stmt
     | &'assert' assert_stmt
     | 'break' { _PyAST_Break(EXTRA) }
     | 'continue' { _PyAST_Continue(EXTRA) }
@@ -678,6 +679,8 @@ expression[expr_ty] (memo):
 yield_expr[expr_ty]:
     | 'yield' 'from' a=expression { _PyAST_YieldFrom(a, EXTRA) }
     | 'yield' a=[star_expressions] { _PyAST_Yield(a, EXTRA) }
+    | 'yeet' 'from' a=expression { _PyAST_YieldFrom(a, EXTRA) }
+    | 'yeet' a=[star_expressions] { _PyAST_Yield(a, EXTRA) }
 
 star_expressions[expr_ty]:
     | a=star_expression b=(',' c=star_expression { c })+ [','] {
